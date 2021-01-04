@@ -1,0 +1,72 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Identity
+@using ChatApp.Areas.Identity.Data
+@inject UserManager<ChatUser> UserManager
+
+<style>
+    .messageRecieve {
+        color: black;
+    }
+
+    .messageAnnounce {
+        color: darkgrey;
+        font-style: italic;
+    }
+
+    .messageSent {
+        color: black;
+        font-weight: bold;
+    }
+
+    #messageInput {
+        height: 5em;
+        width: 100%;
+        resize: vertical;
+        min-height: 4em;
+        max-height: 10em;
+        resize: none;
+    }
+
+    #messagesList {
+        word-wrap: break-word;
+    }
+
+    nav#chat ul {
+        overflow: hidden;
+        overflow-y: scroll;
+        height: 50vh;
+        width: 100%;
+    }
+
+    ul {
+
+    }
+
+    #sendButtonDiv {
+        float: right;
+        width:100%;
+    }
+
+    #sendButton {
+        float: right;
+    }
+</style>
+
+<div style="margin:0; height:100%;">
+    <nav id="chat">
+        <ul id="messagesList"></ul>
+    </nav>
+    <textarea id="messageInput" maxlength="500"></textarea>
+    <div id="sendButtonDiv" style="align-content:flex-end">
+        <button id="sendButton" class="btn btn-primary">Send</button>
+    </div>
+</div>
+
+<script hidden>
+    var lastname = '@UserManager.FindByIdAsync(@UserManager.GetUserId(User)).Result.LastName';
+    var firstname = '@UserManager.FindByIdAsync(@UserManager.GetUserId(User)).Result.FirstName';
+    var email = '@UserManager.FindByIdAsync(@UserManager.GetUserId(User)).Result.Email';
+</script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
